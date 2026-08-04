@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CV_TEMPLATES } from "@/lib/cv/templates";
 import { Button } from "@/components/ui/Button";
 import { TemplateThumbnail } from "@/components/cv/TemplateThumbnail";
@@ -79,9 +80,16 @@ export default async function CvBuilderLandingPage() {
         <h2 className="mt-16 font-display text-2xl font-semibold tracking-tight">
           Choose from 5 templates
         </h2>
+        <p className="mt-1 text-sm text-ink-900/55 dark:text-paper/55">
+          Click a template to start building with it.
+        </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CV_TEMPLATES.map((template) => (
-            <div key={template.slug} className="rounded-2xl border border-ink-900/10 p-5 dark:border-paper/10">
+            <Link
+              key={template.slug}
+              href={user ? "/dashboard/cvs/new" : "/register"}
+              className="rounded-2xl border border-ink-900/10 p-5 text-left transition-colors hover:border-signal-500 dark:border-paper/10"
+            >
               <div className="mb-4">
                 <TemplateThumbnail slug={template.slug} />
               </div>
@@ -92,7 +100,7 @@ export default async function CvBuilderLandingPage() {
                   ATS Friendly
                 </span>
               )}
-            </div>
+            </Link>
           ))}
         </div>
       </div>
