@@ -68,13 +68,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   } = await supabase.auth.getUser();
 
   let displayName: string | null = null;
+  let isAdmin = false;
   if (user) {
     const { data: profile } = await supabase
       .from("user_profiles")
-      .select("full_name")
+      .select("full_name, roles(name)")
       .eq("id", user.id)
       .single();
     displayName = profile?.full_name?.split(" ")[0] || user.email?.split("@")[0] || "there";
+    isAdmin = (profile as unknown as { roles: { name: string } | null } | null)?.roles?.name === "admin";
   }
 
   return (
@@ -89,7 +91,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           >
             Skip to content
           </a>
-          <Header displayName={displayName} />
+          <Header displayName={displayName} isAdmin={isAdmin} />
           <main id="main-content" className="flex-1">
             {children}
           </main>

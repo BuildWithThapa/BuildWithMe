@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, LayoutDashboard } from "lucide-react";
+import { Menu, X, LayoutDashboard, Shield } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Button } from "@/components/ui/Button";
 import { logoutUser } from "@/app/actions/auth";
@@ -18,7 +18,7 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" }
 ];
 
-export function Header({ displayName }: { displayName: string | null }) {
+export function Header({ displayName, isAdmin }: { displayName: string | null; isAdmin: boolean }) {
   const [open, setOpen] = useState(false);
   const isLoggedIn = !!displayName;
 
@@ -45,6 +45,15 @@ export function Header({ displayName }: { displayName: string | null }) {
           <ThemeToggle />
           {isLoggedIn ? (
             <>
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  className="flex items-center gap-1.5 rounded-full bg-signal-500/10 px-3 py-1.5 text-sm font-medium text-signal-500"
+                >
+                  <Shield size={14} />
+                  Admin
+                </Link>
+              )}
               <Link
                 href="/dashboard"
                 className="flex items-center gap-2 text-sm font-medium text-ink-900 dark:text-paper"
@@ -106,6 +115,16 @@ export function Header({ displayName }: { displayName: string | null }) {
             ))}
             {isLoggedIn ? (
               <li className="flex flex-col gap-3 pt-2">
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-center gap-2 rounded-full bg-signal-500/10 px-4 py-2 text-sm font-medium text-signal-500"
+                  >
+                    <Shield size={16} />
+                    Admin panel
+                  </Link>
+                )}
                 <Link
                   href="/dashboard"
                   onClick={() => setOpen(false)}
