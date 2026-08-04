@@ -27,11 +27,12 @@ export default function CvBuilderLandingPage() {
           </h1>
           <p className="mt-4 text-ink-900/65 dark:text-paper/65">
             Create an account, pick a template, and fill in your experience.
-            No hidden limits, no watermarks.
+            No hidden limits, no watermarks. Or skip the account and try the
+            quick version right now.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Button href="/register" size="lg">
-              Create your CV — it&apos;s free
+            <Button href="/cv-builder/quick" size="lg">
+              Try it now — no login needed
             </Button>
             <Button href="/login" variant="ghost" size="lg">
               I already have an account

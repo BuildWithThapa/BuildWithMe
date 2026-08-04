@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { createClient } from "@/lib/supabase/server";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -60,7 +61,22 @@ export const metadata: Metadata = {
   alternates: { canonical: siteUrl }
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const supabase = createClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  let displayName: string | null = null;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("full_name")
+      .eq("id", user.id)
+      .single();
+    displayName = profile?.full_name?.split(" ")[0] || user.email?.split("@")[0] || "there";
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -73,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           >
             Skip to content
           </a>
-          <Header />
+          <Header displayName={displayName} />
           <main id="main-content" className="flex-1">
             {children}
           </main>

@@ -18,13 +18,6 @@ const COLUMNS = [
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" }
     ]
-  },
-  {
-    title: "Legal",
-    links: [
-      { href: "/privacy", label: "Privacy Policy" },
-      { href: "/terms", label: "Terms of Service" }
-    ]
   }
 ];
 
@@ -40,7 +33,7 @@ function TikTokIcon({ size = 16 }: { size?: number }) {
 export function Footer() {
   return (
     <footer className="border-t border-ink-900/8 dark:border-paper/10">
-      <div className="container-max grid gap-10 px-6 py-16 md:grid-cols-[2fr_1fr_1fr_1fr] md:px-10">
+      <div className="container-max grid gap-10 px-6 py-16 md:grid-cols-[2fr_1fr_1fr] md:px-10">
         <div>
           <Link href="/" className="inline-flex items-center rounded-lg bg-white px-3 py-2 shadow-sm">
             <Image src="/logo.png" alt="BuildWithThapa" width={160} height={30} className="h-7 w-auto" />

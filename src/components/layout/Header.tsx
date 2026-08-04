@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Button } from "@/components/ui/Button";
+import { logoutUser } from "@/app/actions/auth";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -17,8 +18,9 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" }
 ];
 
-export function Header() {
+export function Header({ displayName }: { displayName: string | null }) {
   const [open, setOpen] = useState(false);
+  const isLoggedIn = !!displayName;
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink-900/8 bg-paper/80 backdrop-blur-md dark:border-paper/10 dark:bg-ink-900/80">
@@ -41,12 +43,34 @@ export function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <Button href="/login" variant="ghost" size="sm">
-            Log in
-          </Button>
-          <Button href="/contact" size="sm">
-            Start a project
-          </Button>
+          {isLoggedIn ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 text-sm font-medium text-ink-900 dark:text-paper"
+              >
+                <LayoutDashboard size={16} />
+                Hi, {displayName}
+              </Link>
+              <form action={logoutUser}>
+                <button
+                  type="submit"
+                  className="rounded-full border border-ink-900/10 px-4 py-2 text-sm font-medium hover:bg-ink-900/5 dark:border-paper/15 dark:hover:bg-paper/10"
+                >
+                  Log out
+                </button>
+              </form>
+            </>
+          ) : (
+            <>
+              <Button href="/login" variant="ghost" size="sm">
+                Log in
+              </Button>
+              <Button href="/contact" size="sm">
+                Start a project
+              </Button>
+            </>
+          )}
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -80,14 +104,35 @@ export function Header() {
                 </Link>
               </li>
             ))}
-            <li className="flex gap-3 pt-2">
-              <Button href="/login" variant="ghost" size="sm" className="flex-1">
-                Log in
-              </Button>
-              <Button href="/contact" size="sm" className="flex-1">
-                Start a project
-              </Button>
-            </li>
+            {isLoggedIn ? (
+              <li className="flex flex-col gap-3 pt-2">
+                <Link
+                  href="/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-center gap-2 rounded-full border border-ink-900/10 px-4 py-2 text-sm font-medium dark:border-paper/15"
+                >
+                  <LayoutDashboard size={16} />
+                  Hi, {displayName} — Dashboard
+                </Link>
+                <form action={logoutUser}>
+                  <button
+                    type="submit"
+                    className="w-full rounded-full border border-ink-900/10 px-4 py-2 text-sm font-medium dark:border-paper/15"
+                  >
+                    Log out
+                  </button>
+                </form>
+              </li>
+            ) : (
+              <li className="flex gap-3 pt-2">
+                <Button href="/login" variant="ghost" size="sm" className="flex-1">
+                  Log in
+                </Button>
+                <Button href="/contact" size="sm" className="flex-1">
+                  Start a project
+                </Button>
+              </li>
+            )}
           </ul>
         </nav>
       )}
