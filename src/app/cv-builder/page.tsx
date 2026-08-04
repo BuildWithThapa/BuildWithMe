@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { CV_TEMPLATES } from "@/lib/cv/templates";
 import { Button } from "@/components/ui/Button";
+import { TemplateThumbnail } from "@/components/cv/TemplateThumbnail";
+import { createClient } from "@/lib/supabase/server";
 import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -16,7 +18,12 @@ const BENEFITS = [
   "Duplicate a CV to tailor it for different applications"
 ];
 
-export default function CvBuilderLandingPage() {
+export default async function CvBuilderLandingPage() {
+  const supabase = createClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
   return (
     <div className="section-padding">
       <div className="container-max">
@@ -25,19 +32,39 @@ export default function CvBuilderLandingPage() {
           <h1 className="mt-3 text-balance font-display text-4xl font-semibold tracking-tight md:text-5xl">
             Build a job-ready CV in minutes
           </h1>
-          <p className="mt-4 text-ink-900/65 dark:text-paper/65">
-            Create an account, pick a template, and fill in your experience.
-            No hidden limits, no watermarks. Or skip the account and try the
-            quick version right now.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Button href="/cv-builder/quick" size="lg">
-              Try it now — no login needed
-            </Button>
-            <Button href="/login" variant="ghost" size="lg">
-              I already have an account
-            </Button>
-          </div>
+
+          {user ? (
+            <>
+              <p className="mt-4 text-ink-900/65 dark:text-paper/65">
+                You&apos;re already logged in — jump straight to your saved
+                CVs, or try the quick no-save version.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button href="/dashboard/cvs" size="lg">
+                  Go to My CVs
+                </Button>
+                <Button href="/cv-builder/quick" variant="ghost" size="lg">
+                  Try the quick builder
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="mt-4 text-ink-900/65 dark:text-paper/65">
+                Create an account, pick a template, and fill in your experience.
+                No hidden limits, no watermarks. Or skip the account and try the
+                quick version right now.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Button href="/cv-builder/quick" size="lg">
+                  Try it now — no login needed
+                </Button>
+                <Button href="/login" variant="ghost" size="lg">
+                  I already have an account
+                </Button>
+              </div>
+            </>
+          )}
         </div>
 
         <ul className="mt-10 grid gap-3 sm:grid-cols-2">
@@ -55,10 +82,8 @@ export default function CvBuilderLandingPage() {
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CV_TEMPLATES.map((template) => (
             <div key={template.slug} className="rounded-2xl border border-ink-900/10 p-5 dark:border-paper/10">
-              <div className="mb-4 flex aspect-[3/4] items-center justify-center rounded-lg bg-ink-900/[0.03] dark:bg-paper/[0.03]">
-                <span className="font-mono text-xs text-ink-900/35 dark:text-paper/35">
-                  {template.name} preview
-                </span>
+              <div className="mb-4">
+                <TemplateThumbnail slug={template.slug} />
               </div>
               <h3 className="font-display font-semibold">{template.name}</h3>
               <p className="mt-1 text-xs text-ink-900/55 dark:text-paper/55">{template.description}</p>

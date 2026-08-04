@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { Copy, Trash2, FileText } from "lucide-react";
+import { Copy, Trash2, FileText, Download } from "lucide-react";
 import { duplicateCv, deleteCv } from "@/app/actions/cv";
 import type { Cv } from "@/types";
 
@@ -31,7 +31,13 @@ export function CvListItem({ cv }: { cv: Cv }) {
         </div>
       </div>
 
-      <div className="mt-4 flex gap-2 text-xs">
+      <div className="mt-4 flex flex-wrap gap-2 text-xs">
+        <Link
+          href={`/dashboard/cvs/${cv.id}/preview`}
+          className="flex items-center gap-1 rounded-full bg-signal-500 px-3 py-1.5 font-medium text-white"
+        >
+          <Download size={12} /> View / Download
+        </Link>
         <Link
           href={`/dashboard/cvs/${cv.id}`}
           className="rounded-full border border-ink-900/10 px-3 py-1.5 font-medium hover:bg-ink-900/5 dark:border-paper/15 dark:hover:bg-paper/10"

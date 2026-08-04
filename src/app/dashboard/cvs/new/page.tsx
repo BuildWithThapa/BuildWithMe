@@ -1,6 +1,7 @@
 import { CV_TEMPLATES } from "@/lib/cv/templates";
 import { createCv } from "@/app/actions/cv";
 import { createClient } from "@/lib/supabase/server";
+import { TemplateThumbnail } from "@/components/cv/TemplateThumbnail";
 
 export default async function NewCvPage() {
   const supabase = createClient();
@@ -34,10 +35,8 @@ export default async function NewCvPage() {
                 disabled={!templateId}
                 className="w-full rounded-2xl border border-ink-900/10 p-5 text-left transition-colors hover:border-signal-500 disabled:opacity-40 dark:border-paper/10"
               >
-                <div className="mb-4 flex aspect-[3/4] items-center justify-center rounded-lg bg-ink-900/[0.03] dark:bg-paper/[0.03]">
-                  <span className="font-mono text-xs text-ink-900/35 dark:text-paper/35">
-                    {template.name} preview
-                  </span>
+                <div className="mb-4">
+                  <TemplateThumbnail slug={template.slug} />
                 </div>
                 <h3 className="font-display font-semibold">{template.name}</h3>
                 <p className="mt-1 text-xs text-ink-900/55 dark:text-paper/55">
