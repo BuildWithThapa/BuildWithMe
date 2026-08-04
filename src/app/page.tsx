@@ -4,7 +4,6 @@ import { Services } from "@/components/home/Services";
 import { Skills } from "@/components/home/Skills";
 import { CvBuilderPromo } from "@/components/home/CvBuilderPromo";
 import { Testimonials } from "@/components/home/Testimonials";
-import { BlogPreview } from "@/components/home/BlogPreview";
 import { Contact } from "@/components/home/Contact";
 import { Newsletter } from "@/components/home/Newsletter";
 
@@ -35,7 +34,6 @@ export default function HomePage() {
       <Skills />
       <CvBuilderPromo />
       <Testimonials />
-      <BlogPreview />
       <Contact />
       <Newsletter />
     </>
