@@ -7,11 +7,11 @@
 create or replace function is_admin()
 returns boolean as $$
   select exists (
-    select 1 from user_profiles up
-    join roles r on r.id = up.role_id
+    select 1 from public.user_profiles up
+    join public.roles r on r.id = up.role_id
     where up.id = auth.uid() and r.name = 'admin'
   );
-$$ language sql security definer stable;
+$$ language sql security definer stable set search_path = public;
 
 -- Enable RLS everywhere
 alter table roles enable row level security;

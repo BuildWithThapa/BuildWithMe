@@ -356,12 +356,12 @@ begin
   values (
     new.id,
     new.raw_user_meta_data->>'full_name',
-    (select id from roles where name = 'user')
+    (select id from public.roles where name = 'user')
   )
   on conflict (id) do nothing;
   return new;
 end;
-$$ language plpgsql security definer;
+$$ language plpgsql security definer set search_path = public;
 
 drop trigger if exists trg_handle_new_user on auth.users;
 create trigger trg_handle_new_user
