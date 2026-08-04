@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { Services } from "@/components/home/Services";
 import { Skills } from "@/components/home/Skills";
-import { PortfolioPreview } from "@/components/home/PortfolioPreview";
 import { CvBuilderPromo } from "@/components/home/CvBuilderPromo";
 import { Testimonials } from "@/components/home/Testimonials";
 import { BlogPreview } from "@/components/home/BlogPreview";
@@ -20,7 +19,7 @@ const structuredData = {
   description:
     "Full-stack web development studio offering premium web experiences, digital solutions, and a free CV builder.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://buildwiththapa.np",
-  sameAs: ["https://github.com", "https://linkedin.com", "https://twitter.com"]
+  sameAs: ["https://www.tiktok.com/@build.with.thapa", "https://linkedin.com"]
 };
 
 export default function HomePage() {
@@ -34,7 +33,6 @@ export default function HomePage() {
       <Hero />
       <Services />
       <Skills />
-      <PortfolioPreview />
       <CvBuilderPromo />
       <Testimonials />
       <BlogPreview />
