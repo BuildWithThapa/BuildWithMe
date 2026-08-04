@@ -7,8 +7,6 @@ export default async function NewCvPage() {
   const supabase = createClient();
   const { data: dbTemplates } = await supabase.from("cv_templates").select("id, slug");
 
-  // Map static template definitions to their seeded DB row ids so the
-  // created CV can reference cv_templates.id via a real foreign key.
   const idBySlug = new Map((dbTemplates ?? []).map((t) => [t.slug, t.id as string]));
 
   return (
