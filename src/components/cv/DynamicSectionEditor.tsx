@@ -8,6 +8,13 @@ import type { CvSectionType } from "@/types";
 
 type Entry = Record<string, string>;
 
+/** Builds a list entry's display title from its configured field keys — kept
+ * client-side since functions can't be passed from Server to Client Components. */
+function buildEntryTitle(config: SectionConfig, entry: Entry): string {
+  const parts = config.titleFields.map((key) => entry[key]).filter(Boolean);
+  return parts.join(" — ") || "New entry";
+}
+
 interface DynamicSectionEditorProps {
   cvId: string;
   config: SectionConfig;
@@ -185,7 +192,7 @@ export function DynamicSectionEditor({ cvId, config, initialData }: DynamicSecti
             <summary className="flex cursor-pointer list-none items-center justify-between text-sm font-medium">
               <span className="flex items-center gap-2">
                 <ChevronDownIcon size={14} className="text-ink-900/40 dark:text-paper/40" />
-                {config.entryTitle(entry)}
+                {buildEntryTitle(config, entry)}
               </span>
               <span className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                 <button

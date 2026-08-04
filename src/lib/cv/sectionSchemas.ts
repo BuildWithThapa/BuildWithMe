@@ -20,8 +20,8 @@ export interface SectionConfig {
   mode: "single" | "list";
   fields: FieldConfig[];
   addLabel?: string;
-  /** Builds a short display title for a list entry, e.g. "Software Engineer — Acme Co." */
-  entryTitle: (entry: Record<string, string>) => string;
+  /** Field keys joined with " — " to build a list entry's display title (e.g. ["role","company"]). Plain data only — this crosses the server/client boundary and must stay serializable. */
+  titleFields: string[];
 }
 
 export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
@@ -40,7 +40,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "linkedinUrl", label: "LinkedIn", type: "url" },
       { key: "profilePhotoUrl", label: "Profile photo URL", type: "url", span2: true }
     ],
-    entryTitle: () => "Personal Information"
+    titleFields: []
   },
   about: {
     type: "about",
@@ -51,7 +51,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "summary", label: "About", type: "textarea", span2: true },
       { key: "careerObjective", label: "Career objective", type: "textarea", span2: true }
     ],
-    entryTitle: () => "About"
+    titleFields: []
   },
   education: {
     type: "education",
@@ -67,7 +67,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "endDate", label: "End date", type: "date" },
       { key: "description", label: "Description", type: "textarea", span2: true }
     ],
-    entryTitle: (e) => [e.degree, e.institution].filter(Boolean).join(" — ") || "New entry"
+    titleFields: ["degree", "institution"]
   },
   experience: {
     type: "experience",
@@ -84,7 +84,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "current", label: "I currently work here", type: "checkbox" },
       { key: "description", label: "Description", type: "textarea", span2: true }
     ],
-    entryTitle: (e) => [e.role, e.company].filter(Boolean).join(" — ") || "New entry"
+    titleFields: ["role", "company"]
   },
   projects: {
     type: "projects",
@@ -98,7 +98,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "techStack", label: "Technologies (comma-separated)", type: "text", span2: true },
       { key: "description", label: "Description", type: "textarea", span2: true }
     ],
-    entryTitle: (e) => e.name || "New entry"
+    titleFields: ["name"]
   },
   skills: {
     type: "skills",
@@ -115,7 +115,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
         options: ["Beginner", "Intermediate", "Advanced", "Expert"]
       }
     ],
-    entryTitle: (e) => e.name || "New entry"
+    titleFields: ["name"]
   },
   languages: {
     type: "languages",
@@ -132,7 +132,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
         options: ["Basic", "Conversational", "Fluent", "Native"]
       }
     ],
-    entryTitle: (e) => e.name || "New entry"
+    titleFields: ["name"]
   },
   certifications: {
     type: "certifications",
@@ -146,7 +146,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "date", label: "Date", type: "date" },
       { key: "credentialUrl", label: "Credential URL", type: "url", span2: true }
     ],
-    entryTitle: (e) => e.name || "New entry"
+    titleFields: ["name"]
   },
   references: {
     type: "references",
@@ -161,7 +161,7 @@ export const SECTION_CONFIGS: Record<CvSectionType, SectionConfig> = {
       { key: "email", label: "Email", type: "email" },
       { key: "phone", label: "Phone", type: "text" }
     ],
-    entryTitle: (e) => e.name || "New entry"
+    titleFields: ["name"]
   }
 };
 
