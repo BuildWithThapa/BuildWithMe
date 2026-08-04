@@ -1,4 +1,5 @@
 import { Activity } from "lucide-react";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 interface ActivityLog {
@@ -22,10 +23,12 @@ export default async function DashboardActivityPage() {
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect("/login?redirectTo=/dashboard/activity");
+
   const { data: logs } = await supabase
     .from("activity_logs")
     .select("id, action, entity_type, created_at")
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .limit(50);
 

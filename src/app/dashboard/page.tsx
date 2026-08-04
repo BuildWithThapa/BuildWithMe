@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FileText, Upload, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
@@ -9,10 +10,12 @@ export default async function DashboardOverviewPage() {
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect("/login?redirectTo=/dashboard");
+
   const [{ data: profile }, { count: cvCount }, { count: uploadCount }] = await Promise.all([
-    supabase.from("user_profiles").select("full_name, avatar_url").eq("id", user!.id).single(),
-    supabase.from("cvs").select("id", { count: "exact", head: true }).eq("user_id", user!.id),
-    supabase.from("uploads").select("id", { count: "exact", head: true }).eq("user_id", user!.id)
+    supabase.from("user_profiles").select("full_name, avatar_url").eq("id", user.id).single(),
+    supabase.from("cvs").select("id", { count: "exact", head: true }).eq("user_id", user.id),
+    supabase.from("uploads").select("id", { count: "exact", head: true }).eq("user_id", user.id)
   ]);
 
   const firstName = profile?.full_name?.split(" ")[0] ?? "there";

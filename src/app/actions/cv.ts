@@ -41,6 +41,7 @@ export async function createCv(templateId: string, title: string): Promise<void>
     .single();
 
   if (error || !cv) {
+    console.error("createCv insert failed:", error?.message, error?.details, error?.hint);
     throw new Error("Could not create CV.");
   }
 
@@ -51,7 +52,10 @@ export async function createCv(templateId: string, title: string): Promise<void>
     data: defaultSectionData(type)
   }));
 
-  await supabase.from("cv_sections").insert(sectionRows);
+  const { error: sectionsError } = await supabase.from("cv_sections").insert(sectionRows);
+  if (sectionsError) {
+    console.error("createCv sections insert failed:", sectionsError.message, sectionsError.details);
+  }
 
   revalidatePath("/dashboard/cvs");
   redirect(`/dashboard/cvs/${cv.id}`);

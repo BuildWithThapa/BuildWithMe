@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { UploadManager, type UploadRecord } from "@/components/dashboard/UploadManager";
 
@@ -7,10 +8,12 @@ export default async function DashboardUploadsPage() {
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect("/login?redirectTo=/dashboard/uploads");
+
   const { data: uploads } = await supabase
     .from("uploads")
     .select("id, bucket, path, original_filename, mime_type, size_bytes, created_at")
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
   return (
@@ -21,7 +24,7 @@ export default async function DashboardUploadsPage() {
       </p>
 
       <div className="mt-8">
-        <UploadManager userId={user!.id} initialUploads={(uploads as UploadRecord[] | null) ?? []} />
+        <UploadManager userId={user.id} initialUploads={(uploads as UploadRecord[] | null) ?? []} />
       </div>
     </div>
   );

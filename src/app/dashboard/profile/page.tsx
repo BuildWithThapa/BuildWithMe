@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { ProfileForm } from "@/components/dashboard/ProfileForm";
 import type { UserProfile } from "@/types";
@@ -8,10 +9,12 @@ export default async function DashboardProfilePage() {
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect("/login?redirectTo=/dashboard/profile");
+
   const { data: profile } = await supabase
     .from("user_profiles")
     .select("*")
-    .eq("id", user!.id)
+    .eq("id", user.id)
     .single();
 
   const p = profile as UserProfile | null;
@@ -26,7 +29,7 @@ export default async function DashboardProfilePage() {
 
       <div className="mt-8">
         <ProfileForm
-          userId={user!.id}
+          userId={user.id}
           initialValues={{
             fullName: p?.full_name ?? "",
             phone: p?.phone ?? "",

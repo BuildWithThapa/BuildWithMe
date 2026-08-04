@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { CvPreview } from "@/components/cv/CvPreview";
@@ -12,11 +12,13 @@ export default async function CvPreviewPage({ params }: { params: { id: string }
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect(`/login?redirectTo=/dashboard/cvs/${params.id}/preview`);
+
   const { data: cv } = await supabase
     .from("cvs")
     .select("*, cv_sections(*), cv_templates(slug)")
     .eq("id", params.id)
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .single();
 
   if (!cv) notFound();

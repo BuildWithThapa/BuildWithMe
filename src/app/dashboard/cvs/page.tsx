@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/Button";
 import { CvListItem } from "@/components/cv/CvListItem";
@@ -9,10 +10,12 @@ export default async function CvsListPage() {
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect("/login?redirectTo=/dashboard/cvs");
+
   const { data: cvs } = await supabase
     .from("cvs")
     .select("*")
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .order("updated_at", { ascending: false });
 
   return (

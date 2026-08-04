@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { SECTION_CONFIGS, SECTION_ORDER } from "@/lib/cv/sectionSchemas";
@@ -13,11 +13,13 @@ export default async function CvEditorPage({ params }: { params: { id: string } 
     data: { user }
   } = await supabase.auth.getUser();
 
+  if (!user) redirect(`/login?redirectTo=/dashboard/cvs/${params.id}`);
+
   const { data: cv } = await supabase
     .from("cvs")
     .select("*, cv_sections(*)")
     .eq("id", params.id)
-    .eq("user_id", user!.id)
+    .eq("user_id", user.id)
     .single();
 
   if (!cv) notFound();
