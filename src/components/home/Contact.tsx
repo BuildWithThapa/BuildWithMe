@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { MessageCircle, Mail, Zap } from "lucide-react";
 import { contactFormSchema, type ContactFormValues } from "@/lib/validation";
 import { submitContactForm } from "@/app/actions/contact";
 import { Button } from "@/components/ui/Button";
@@ -51,6 +52,40 @@ export function Contact() {
             one business day. We&apos;re happy to create a solution according
             to your needs and budget.
           </p>
+
+          <div className="mt-6 space-y-3">
+            <a
+              href="https://wa.me/447824385902"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-xl border border-ink-900/10 p-4 transition-colors hover:border-signal-500 dark:border-paper/10"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signal-500/10 text-signal-500">
+                <MessageCircle size={18} />
+              </span>
+              <span>
+                <span className="block text-sm font-medium">WhatsApp: +44 7824 385902</span>
+                <span className="flex items-center gap-1 text-xs text-ink-900/50 dark:text-paper/50">
+                  <Zap size={12} /> Text only, for emergency/rush delivery
+                </span>
+              </span>
+            </a>
+
+            <a
+              href="mailto:hello@buildwiththapa.np"
+              className="flex items-center gap-3 rounded-xl border border-ink-900/10 p-4 transition-colors hover:border-signal-500 dark:border-paper/10"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signal-500/10 text-signal-500">
+                <Mail size={18} />
+              </span>
+              <span>
+                <span className="block text-sm font-medium">hello@buildwiththapa.np</span>
+                <span className="block text-xs text-ink-900/50 dark:text-paper/50">
+                  For everything else — quotes, questions, project details
+                </span>
+              </span>
+            </a>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">

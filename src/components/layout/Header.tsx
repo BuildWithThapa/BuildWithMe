@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Button } from "@/components/ui/Button";
@@ -22,9 +23,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-ink-900/8 bg-paper/80 backdrop-blur-md dark:border-paper/10 dark:bg-ink-900/80">
       <div className="container-max flex items-center justify-between px-6 py-4 md:px-10">
-        <Link href="/" className="flex items-baseline gap-1 font-display text-lg font-semibold">
-          <span>BuildWith</span>
-          <span className="text-signal-500">Thapa</span>
+        <Link href="/" className="flex items-center rounded-lg bg-white px-3 py-1.5 shadow-sm">
+          <Image src="/logo.png" alt="BuildWithThapa" width={140} height={26} className="h-6 w-auto" priority />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">

@@ -57,6 +57,7 @@ export async function submitContactForm(formData: FormData): Promise<ActionResul
   });
 
   if (error) {
+    console.error("Contact form insert failed:", error.message, error.details, error.hint);
     return { success: false, error: "Something went wrong. Please try again." };
   }
 

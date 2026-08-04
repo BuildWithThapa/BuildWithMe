@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginValues } from "@/lib/validation";
 import { loginUser } from "@/app/actions/auth";
 import { AuthCard } from "@/components/auth/AuthCard";
+import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
 import { FormField } from "@/components/ui/FormField";
 import { Button } from "@/components/ui/Button";
 
@@ -54,6 +55,14 @@ function LoginForm() {
         </span>
       }
     >
+      <GoogleSignInButton />
+
+      <div className="my-6 flex items-center gap-3">
+        <div className="h-px flex-1 bg-ink-900/10 dark:bg-paper/15" />
+        <span className="text-xs text-ink-900/40 dark:text-paper/40">or</span>
+        <div className="h-px flex-1 bg-ink-900/10 dark:bg-paper/15" />
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
         <FormField
           id="email"

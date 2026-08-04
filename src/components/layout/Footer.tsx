@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import Image from "next/image";
+import { Linkedin, Mail, MessageCircle } from "lucide-react";
 
 const COLUMNS = [
   {
@@ -27,24 +28,35 @@ const COLUMNS = [
   }
 ];
 
+/** Simple TikTok glyph — lucide-react doesn't ship brand icons. */
+function TikTokIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M16.5 2c.3 2.1 1.6 3.8 3.7 4.2v2.9c-1.3.1-2.6-.3-3.7-1v6.4c0 3.1-2.5 5.5-5.6 5.5-3.1 0-5.6-2.5-5.6-5.5 0-3 2.5-5.5 5.6-5.5.4 0 .8 0 1.1.1v3c-.3-.1-.7-.2-1.1-.2-1.4 0-2.6 1.1-2.6 2.6 0 1.4 1.1 2.6 2.6 2.6 1.4 0 2.7-1.1 2.7-2.6V2h2.9Z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="border-t border-ink-900/8 dark:border-paper/10">
       <div className="container-max grid gap-10 px-6 py-16 md:grid-cols-[2fr_1fr_1fr_1fr] md:px-10">
         <div>
-          <Link href="/" className="font-display text-lg font-semibold">
-            BuildWith<span className="text-signal-500">Thapa</span>
+          <Link href="/" className="inline-flex items-center rounded-lg bg-white px-3 py-2 shadow-sm">
+            <Image src="/logo.png" alt="BuildWithThapa" width={160} height={30} className="h-7 w-auto" />
           </Link>
           <p className="mt-3 max-w-xs text-sm text-ink-900/60 dark:text-paper/60">
             Building Modern Web Experiences &amp; Digital Solutions.
           </p>
           <div className="mt-5 flex gap-3">
             <a
-              href="https://github.com"
-              aria-label="GitHub"
+              href="https://www.tiktok.com/@build.with.thapa"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="TikTok"
               className="flex h-9 w-9 items-center justify-center rounded-full border border-ink-900/10 hover:bg-ink-900/5 dark:border-paper/15 dark:hover:bg-paper/10"
             >
-              <Github size={16} />
+              <TikTokIcon size={16} />
             </a>
             <a
               href="https://linkedin.com"
@@ -54,11 +66,13 @@ export function Footer() {
               <Linkedin size={16} />
             </a>
             <a
-              href="https://twitter.com"
-              aria-label="Twitter / X"
+              href="https://wa.me/447824385902"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
               className="flex h-9 w-9 items-center justify-center rounded-full border border-ink-900/10 hover:bg-ink-900/5 dark:border-paper/15 dark:hover:bg-paper/10"
             >
-              <Twitter size={16} />
+              <MessageCircle size={16} />
             </a>
             <a
               href="mailto:hello@buildwiththapa.np"
