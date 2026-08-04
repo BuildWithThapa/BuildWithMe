@@ -31,19 +31,19 @@ insert into packages (service_id, name, description, features, price, display_or
 select id, 'Basic', 'A polished single-page site to get you online fast.',
   array['Up to 5 sections','Mobile responsive','Basic SEO setup','1 round of revisions'], 499, 0
 from services where slug = 'web-development'
-on conflict do nothing;
+on conflict (service_id, name) do nothing;
 
 insert into packages (service_id, name, description, features, price, display_order)
 select id, 'Basic Plus', 'A multi-page site or web app with real functionality.',
   array['Up to 8 pages','Supabase auth & database','CMS-editable content','Contact & newsletter forms','3 rounds of revisions'], 1299, 1
 from services where slug = 'web-development'
-on conflict do nothing;
+on conflict (service_id, name) do nothing;
 
 insert into packages (service_id, name, description, features, price, display_order)
 select id, 'Premium', 'A full SaaS platform, built and shipped end to end.',
   array['Custom architecture','Admin panel & role-based access','Third-party integrations','Performance & security hardening','Ongoing support'], null, 2
 from services where slug = 'saas-platforms'
-on conflict do nothing;
+on conflict (service_id, name) do nothing;
 
 insert into blog_categories (name, slug) values
   ('Engineering', 'engineering'),
