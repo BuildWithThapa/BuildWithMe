@@ -12,7 +12,7 @@ const TESTIMONIALS = [
   {
     name: "Maya Gurung",
     content:
-      "Used the free CV builder to apply for a role abroad — the ATS-friendly template got past the screening and I landed the interview."
+      "Used the free CV builder to apply for a role abroad — the template looked genuinely professional and I landed the interview."
   }
 ];
 

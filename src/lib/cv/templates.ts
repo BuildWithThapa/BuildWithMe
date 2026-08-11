@@ -3,51 +3,41 @@ export interface CvTemplateDef {
   name: string;
   description: string;
   isAtsFriendly: boolean;
-  /** Tailwind classes applied to the preview/PDF container root for this template's look. */
-  containerClass: string;
-  accentClass: string;
+  /** Primary accent color as a hex value — used for small UI touches (e.g. picker badges). */
+  accentHex: string;
 }
 
+// Exactly 4 templates, each with its own distinct hand-built layout in
+// CvPreview.tsx and TemplateThumbnail.tsx — these aren't just color
+// variants of one layout, the structure differs per template.
 export const CV_TEMPLATES: CvTemplateDef[] = [
   {
-    slug: "modern",
-    name: "Modern",
-    description: "Clean two-tone layout with a bold name header.",
-    isAtsFriendly: true,
-    containerClass: "font-sans",
-    accentClass: "text-signal-600"
-  },
-  {
-    slug: "professional",
-    name: "Professional",
-    description: "Traditional single-column layout for corporate roles.",
-    isAtsFriendly: true,
-    containerClass: "font-serif",
-    accentClass: "text-ink-900"
-  },
-  {
-    slug: "creative",
-    name: "Creative",
-    description: "Distinct sidebar layout for design and creative roles.",
+    slug: "navy-sidebar",
+    name: "Navy Sidebar",
+    description: "Dark navy sidebar with a photo, contact, skills, and languages at a glance.",
     isAtsFriendly: false,
-    containerClass: "font-sans",
-    accentClass: "text-signal-600"
+    accentHex: "#1B2436"
   },
   {
-    slug: "minimal",
-    name: "Minimal",
-    description: "Typography-first layout with generous whitespace.",
-    isAtsFriendly: true,
-    containerClass: "font-sans",
-    accentClass: "text-ink-900"
+    slug: "sunburst",
+    name: "Sunburst",
+    description: "Bold black-and-amber layout with skill bars and a photo-led sidebar.",
+    isAtsFriendly: false,
+    accentHex: "#F0A93A"
   },
   {
-    slug: "ats-friendly",
-    name: "ATS Friendly",
-    description: "Plain single-column format optimized for applicant tracking systems.",
-    isAtsFriendly: true,
-    containerClass: "font-sans",
-    accentClass: "text-ink-900"
+    slug: "bold-contrast",
+    name: "Bold Contrast",
+    description: "Striking navy-and-amber two-tone design with oversized name typography.",
+    isAtsFriendly: false,
+    accentHex: "#F5B942"
+  },
+  {
+    slug: "teal-professional",
+    name: "Teal Professional",
+    description: "Clean teal sidebar with bordered contact and about sections.",
+    isAtsFriendly: false,
+    accentHex: "#2FB6C4"
   }
 ];
 

@@ -103,7 +103,7 @@ export type CvSectionType =
 
 export interface CvTemplate {
   id: string;
-  name: "Modern" | "Professional" | "Creative" | "Minimal" | "ATS Friendly" | string;
+  name: "Navy Sidebar" | "Sunburst" | "Bold Contrast" | "Teal Professional" | string;
   slug: string;
   preview_image_url: string | null;
   is_ats_friendly: boolean;

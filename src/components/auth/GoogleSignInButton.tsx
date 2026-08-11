@@ -27,7 +27,12 @@ function GoogleIcon() {
   );
 }
 
-export function GoogleSignInButton() {
+interface GoogleSignInButtonProps {
+  /** "light" for the existing white/paper auth cards, "dark" for the glass login page. */
+  variant?: "light" | "dark";
+}
+
+export function GoogleSignInButton({ variant = "light" }: GoogleSignInButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,18 +54,18 @@ export function GoogleSignInButton() {
     }
   };
 
+  const buttonClass =
+    variant === "dark"
+      ? "flex w-full items-center justify-center gap-3 rounded-xl border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-white/15 disabled:opacity-50"
+      : "flex w-full items-center justify-center gap-3 rounded-full border border-ink-900/15 px-6 py-3 text-sm font-medium transition-colors hover:bg-ink-900/5 disabled:opacity-50 dark:border-paper/20 dark:hover:bg-paper/10";
+
   return (
     <div>
-      <button
-        type="button"
-        onClick={handleClick}
-        disabled={isLoading}
-        className="flex w-full items-center justify-center gap-3 rounded-full border border-ink-900/15 px-6 py-3 text-sm font-medium transition-colors hover:bg-ink-900/5 disabled:opacity-50 dark:border-paper/20 dark:hover:bg-paper/10"
-      >
+      <button type="button" onClick={handleClick} disabled={isLoading} className={buttonClass}>
         <GoogleIcon />
         {isLoading ? "Redirecting..." : "Continue with Google"}
       </button>
-      {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
+      {error && <p className={`mt-2 text-xs ${variant === "dark" ? "text-red-300" : "text-red-500"}`}>{error}</p>}
     </div>
   );
 }

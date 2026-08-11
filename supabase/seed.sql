@@ -4,12 +4,15 @@
 -- Safe to re-run: uses ON CONFLICT DO NOTHING.
 -- =====================================================================
 
+-- Remove the old 5-template set if this project was seeded before the
+-- template redesign — safe no-op if they were never inserted.
+delete from cv_templates where slug in ('modern', 'professional', 'creative', 'minimal', 'ats-friendly');
+
 insert into cv_templates (name, slug, is_ats_friendly, is_active) values
-  ('Modern',        'modern',       true,  true),
-  ('Professional',  'professional', true,  true),
-  ('Creative',      'creative',     false, true),
-  ('Minimal',        'minimal',      true,  true),
-  ('ATS Friendly',   'ats-friendly', true,  true)
+  ('Navy Sidebar',       'navy-sidebar',       false, true),
+  ('Sunburst',           'sunburst',           false, true),
+  ('Bold Contrast',      'bold-contrast',      false, true),
+  ('Teal Professional',  'teal-professional',  false, true)
 on conflict (slug) do nothing;
 
 insert into project_categories (name, slug) values

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CV_TEMPLATES } from "@/lib/cv/templates";
 import { Button } from "@/components/ui/Button";
 import { TemplateThumbnail } from "@/components/cv/TemplateThumbnail";
@@ -7,12 +8,12 @@ import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Free CV Builder",
-  description: "Build a professional, ATS-friendly CV in minutes and export it as a PDF — free, no catch."
+  description: "Build a professional, standout CV in minutes and export it as a PDF — free, no catch."
 };
 
 const BENEFITS = [
   "Unlimited CVs, saved to your account",
-  "5 professional templates, including ATS-friendly formats",
+  "4 bold, distinct professional templates",
   "Section-by-section editor with autosave",
   "One-click, high-quality PDF export",
   "Duplicate a CV to tailor it for different applications"
@@ -77,22 +78,24 @@ export default async function CvBuilderLandingPage() {
         </ul>
 
         <h2 className="mt-16 font-display text-2xl font-semibold tracking-tight">
-          Choose from 5 templates
+          Choose from 4 templates
         </h2>
+        <p className="mt-1 text-sm text-ink-900/55 dark:text-paper/55">
+          Click a template to start building with it.
+        </p>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CV_TEMPLATES.map((template) => (
-            <div key={template.slug} className="rounded-2xl border border-ink-900/10 p-5 dark:border-paper/10">
+            <Link
+              key={template.slug}
+              href={user ? "/dashboard/cvs/new" : "/register"}
+              className="rounded-2xl border border-ink-900/10 p-5 text-left transition-colors hover:border-signal-500 dark:border-paper/10"
+            >
               <div className="mb-4">
                 <TemplateThumbnail slug={template.slug} />
               </div>
               <h3 className="font-display font-semibold">{template.name}</h3>
               <p className="mt-1 text-xs text-ink-900/55 dark:text-paper/55">{template.description}</p>
-              {template.isAtsFriendly && (
-                <span className="mt-2 inline-block rounded-full bg-success/10 px-2 py-0.5 text-[11px] font-medium text-success">
-                  ATS Friendly
-                </span>
-              )}
-            </div>
+            </Link>
           ))}
         </div>
       </div>

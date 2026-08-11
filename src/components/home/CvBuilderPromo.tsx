@@ -2,7 +2,7 @@ import { FileText, Download, LayoutTemplate } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 const FEATURES = [
-  { icon: LayoutTemplate, label: "5 professional templates, including ATS-friendly" },
+  { icon: LayoutTemplate, label: "4 professional templates, real color and layout variety" },
   { icon: FileText, label: "Unlimited CVs, saved to your account" },
   { icon: Download, label: "One-click, high-quality PDF export" }
 ];

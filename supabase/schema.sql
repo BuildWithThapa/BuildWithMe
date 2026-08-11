@@ -218,7 +218,7 @@ create table if not exists newsletter_subscribers (
 
 create table if not exists cv_templates (
   id uuid primary key default uuid_generate_v4(),
-  name text not null,                 -- Modern | Professional | Creative | Minimal | ATS Friendly
+  name text not null,                 -- Navy Sidebar | Sunburst | Bold Contrast | Teal Professional
   slug text unique not null,
   preview_image_url text,
   is_ats_friendly boolean not null default false,
