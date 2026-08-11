@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { Header } from "@/components/layout/Header";
@@ -58,7 +58,26 @@ export const metadata: Metadata = {
     description: "Full-stack development, premium portfolio engineering, and a free CV builder."
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: siteUrl }
+  alternates: { canonical: siteUrl },
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" }
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }]
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "BuildWithThapa"
+  }
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B0E14",
+  width: "device-width",
+  initialScale: 1
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
