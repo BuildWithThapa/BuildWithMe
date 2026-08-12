@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Download, TrendingUp, Rocket, Users } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { TrendingUp, Rocket, Users } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About",
@@ -37,10 +36,6 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-
-        <Button href="/cv.pdf" className="mt-8">
-          <Download size={16} /> Download CV
-        </Button>
       </div>
     </div>
   );
