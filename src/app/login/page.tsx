@@ -54,7 +54,7 @@ function LoginForm() {
   };
 
   return (
-    <section className="relative flex min-h-[calc(100vh-4rem)] items-center justify-center overflow-hidden px-6 py-16">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-16">
       {/* Background scene from the template — photo, walking figure,
           falling leaves, tree silhouette frame in front */}
       <Image src="/login-bg/bg.jpg" alt="" fill priority className="pointer-events-none object-cover" />
@@ -84,14 +84,14 @@ function LoginForm() {
 
       {/* Glass card — sits above every decorative layer so it's always
           usable regardless of the tree silhouette's framing */}
-      <div className="relative z-[200] w-full max-w-md rounded-3xl border border-white bg-white/25 p-10 shadow-[0_25px_50px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
+      <div className="relative z-[200] w-full max-w-md rounded-3xl border border-white bg-white/25 p-8 shadow-[0_25px_50px_rgba(0,0,0,0.25)] backdrop-blur-2xl sm:p-10 md:max-w-lg md:p-12 lg:max-w-xl">
         <Link href="/" className="mb-8 flex justify-center">
           <span className="inline-flex items-center rounded-lg bg-white px-3 py-1.5 shadow-sm">
             <Image src="/logo.png" alt="BuildWithThapa" width={140} height={26} className="h-6 w-auto" />
           </span>
         </Link>
 
-        <h1 className="text-center font-display text-3xl font-semibold text-ink-900">Sign In</h1>
+        <h1 className="text-center font-display text-3xl font-semibold text-ink-900 md:text-4xl">Sign In</h1>
         <p className="mt-2 text-center text-sm text-ink-900/70">
           Log in to manage your CVs and dashboard.
         </p>
