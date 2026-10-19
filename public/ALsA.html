@@ -145,7 +145,7 @@
   <p class="music-hint">♫ tap the card — our song plays along</p>
 
   <div class="controls">
-    <button class="primary" id="openLetter">Open this ✧</button>
+    <button class="primary" id="openLetter">Open what I wrote for you ♡</button>
     <button id="heartButton">Send you a thousand hearts ♥</button>
   </div>
 
@@ -246,7 +246,7 @@
 
   document.getElementById('openLetter').addEventListener('click',()=>{
     const s=document.getElementById('letterSection'); s.classList.toggle('show');
-    document.getElementById('openLetter').textContent=s.classList.contains('show')?'Close your little love letter ♡':'Open your little love letter ✧';
+    document.getElementById('openLetter').textContent=s.classList.contains('show')?'Close it for now ♡':'Open what I wrote for you ♡';
     if(s.classList.contains('show'))s.scrollIntoView({behavior:'smooth',block:'start'});
   });
   function burst(count=24){
